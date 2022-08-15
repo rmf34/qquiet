@@ -1,12 +1,25 @@
 import boto3
 
-session = boto3.Session(
-    aws_access_key_id='',
-    aws_secret_access_key='',
-)
+DEV_BUCKET = 'qquiet-dev'
+class S3Storage():
 
-s3 = session.resource('s3')
+    def session(self):
+        return boto3.Session(
+            aws_access_key_id='',
+            aws_secret_access_key='',
+        )
 
-# NOTE: root is /code
-# PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
-s3.Bucket('qquiet-dev').download_file('test.txt', '/tmp/test.txt')
+    def s3(self):
+        return self.session().resource('s3').Bucket(DEV_BUCKET)
+
+    def download(self, filename):
+        # NOTE: root is /code
+        # PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
+        self.s3().download_file(f'audio/{filename}', f'/tmp/{filename}')
+
+    def upload(self, temp_location, filename):
+        self.s3().upload_file(temp_location, f'audio/{filename}') # from temp location
+
+    def put(self, data, upload_file_path):
+        self.s3().put_object(Bucket=DEV_BUCKET, Body=data, Key=upload_file_path)    # in memory
+

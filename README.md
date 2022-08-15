@@ -1,10 +1,26 @@
 ## qquiet
+
+### Dev setup with debugger
+docker-compose up -d
+docker attach qquiet_web_1
+
+
+
+
 ## Common Getting Started Commands
 ### Docker
 docker-compose build // adding new dependencies
 docker-compose up
 docker-compose down
 docker container exec -it <container_id>  /bin/bash
+
+### with PDB
+docker-compose up -d
+docker attach qquiet_web_1
+//docker attach <project>_<djangocontainername>_1
+
+-- for breakpoint
+import pdb; pdb.set_trace()
 
 ### Migrations 
 python manage.py makemigrations qquiet
@@ -30,3 +46,18 @@ l.save
 setup api endpoint to POST audio files 
 setup boto3 to read/write S3 
 setup api keys for api 
+
+
+
+
+
+##### CUT
+around debugging
+-- in file
+-- from django.http import HttpResponse
+
+
+
+
+
+
