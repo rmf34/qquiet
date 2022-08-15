@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from . import views
+# from . import views
 
 urlpatterns = [
     # path('qquiet/', include('qquiet.urls')),
     path('admin/', admin.site.urls),
-    path('index/', views.index, name='index'),
+    # path('index/', views.index, name='index'),
+    path('', include('qquiet.routes')),
 ]
